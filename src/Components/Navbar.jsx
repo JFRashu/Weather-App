@@ -32,24 +32,13 @@ const Navbar = () => {
       </div>
     </div>
     <div className="navbar-center">
-      <a className="btn btn-ghost text-xl">daisyUI</a>
+      <a className="btn btn-ghost text-xl">Weather App</a>
     </div>
-    <div className="navbar-end">
-      <button className="btn btn-ghost btn-circle">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      </button>
-      <button className="btn btn-ghost btn-circle">
+    <div className="navbar-end mr-3 mt-1">
+    <div className="form-control">
+      <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+    </div>
+      {/* <button className="btn btn-ghost btn-circle">
         <div className="indicator">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +54,7 @@ const Navbar = () => {
           </svg>
           <span className="badge badge-xs badge-primary indicator-item"></span>
         </div>
-      </button>
+      </button> */}
     </div>
   </div>
   )
