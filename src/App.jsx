@@ -8,10 +8,17 @@ import Help from './Routes/Help'
 import { About } from './Routes/About'
 import AirQuality from './Routes/AirQuality'
 import CityComparison from './Routes/City_Comparison'
-
+import { useEffect } from 'react'
+import { AOS } from 'aos'
 function App() {
   // const [count, setCount] = useState(0)
-
+//   useEffect(() => {
+//     AOS.init({
+//         duration: 1000, // Duration of animations (in milliseconds)
+//         easing: 'ease-in-out', // Easing function for animations
+//         once: true, // Whether animation should happen only once or every time you scroll
+//     });
+// }, []);
   return (
     <div className="dark">
 <BrowserRouter>

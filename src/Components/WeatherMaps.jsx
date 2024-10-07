@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Map, Cloud, Wind, Droplets, Thermometer, Layers, Compass, Maximize2 } from 'lucide-react';
-import { MapContainer, TileLayer, LayersControl } from 'react-leaflet';
+import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const WeatherMaps = () => {
@@ -49,16 +49,6 @@ const WeatherMaps = () => {
                         <h1 className="text-3xl font-bold text-white mb-2">Weather Maps</h1>
                         <p className="text-gray-300">Powered by OpenWeather API</p>
                     </div>
-                    {/* <div className="flex gap-2">
-                        <button className="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors flex items-center gap-2">
-                            <Layers className="w-4 h-4" />
-                            Change Layers
-                        </button>
-                        <button className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors flex items-center gap-2">
-                            <Maximize2 className="w-4 h-4" />
-                            Fullscreen
-                        </button>
-                    </div> */}
                 </div>
 
                 {/* Map Type Selection */}
@@ -86,7 +76,7 @@ const WeatherMaps = () => {
                 </div>
 
                 {/* Map Container */}
-                <div className="bg-gray-700/30 rounded-xl overflow-hidden border border-gray-700">
+                <div className="bg-gray-700/30 rounded-xl overflow-hidden border border-gray-700 relative">
                     <div className="p-4 border-b border-gray-700 flex justify-between items-center">
                         <div className="text-white font-medium">
                             {activeLayer?.label}
@@ -97,7 +87,7 @@ const WeatherMaps = () => {
                         <MapContainer
                             center={[20, 0]}
                             zoom={2}
-                            className="h-full w-full"
+                            className="h-full w-full z-0" // Set z-index for the map
                             scrollWheelZoom={true}
                         >
                             {/* Base Map Layer */}
@@ -115,7 +105,7 @@ const WeatherMaps = () => {
                         </MapContainer>
 
                         {/* Legend */}
-                        <div className="absolute bottom-4 left-4 bg-black/50 rounded-lg p-3 z-[1000]">
+                        <div className="absolute bottom-4 left-4 bg-black/50 rounded-lg p-3 z-10"> {/* Set higher z-index for the legend */}
                             <div className="text-white text-sm mb-2">Legend</div>
                             <div className="flex gap-4">
                                 <div className="flex items-center gap-2">

@@ -1,8 +1,11 @@
 
 import { ArrowRight, CloudRain, Compass, Map } from 'lucide-react';
 import { CurrentInfo } from './CurrentInfo';
+import { useNavigate } from 'react-router-dom';
 
 const VideoHero = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="relative min-h-[400px] md:min-h-[500px] lg:min-h-[600px] w-full overflow-hidden">
             {/* Video Background */}
@@ -63,7 +66,7 @@ const VideoHero = () => {
 
                             {/* Weather CTAs */}
                             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                                <button className="inline-flex items-center px-6 py-3 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors duration-300">
+                                <button  onClick={() => navigate('/forecast')} className="inline-flex items-center px-6 py-3 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors duration-300">
                                     Check Forecast
                                     <ArrowRight className="ml-2 h-5 w-5" />
                                 </button>

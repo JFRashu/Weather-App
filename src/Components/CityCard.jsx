@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { 
     LineChart, Line, XAxis, YAxis, CartesianGrid, 
     Tooltip, Legend, ResponsiveContainer 
@@ -8,7 +8,18 @@ import {
     Sunrise, Sunset, Clock, 
     ThermometerSun, Wind, Droplets 
   } from 'lucide-react';
+
+  import AOS from 'aos';
+  import 'aos/dist/aos.css';
+
 function CityCard({ cityData, title }) {
+    useEffect(() => {
+        AOS.init({
+            duration: 1000, // Duration of animations (in milliseconds)
+            easing: 'ease-in-out', // Easing function for animations
+            once: true, // Whether animation should happen only once or every time you scroll
+        });
+    }, []);
   return (
     <div className="bg-white/10 rounded-lg p-6">
     <div className="flex items-center justify-between mb-4">
@@ -39,6 +50,7 @@ function CityCard({ cityData, title }) {
         </div>
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div className="bg-white/5 rounded-lg p-4">
+         
             <div className="flex items-center mb-2">
               <ThermometerSun className="h-5 w-5 text-yellow-400 mr-2" />
               <span className="text-white/60">Feels Like</span>
@@ -83,7 +95,7 @@ function CityCard({ cityData, title }) {
                 <Sunrise className="h-5 w-5 text-yellow-400 mr-2" />
                 <span className="text-white/60">Sunrise</span>
               </div>
-              <div className="text-white font-semibold">
+              <div  className="text-white font-semibold">
                 {cityData.sun.sunrise}
               </div>
             </div>
