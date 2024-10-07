@@ -6,6 +6,8 @@ import Home from './Routes/Home'
 import Forecast from './Routes/Forecast'
 import Help from './Routes/Help'
 import { About } from './Routes/About'
+import AirQuality from './Routes/AirQuality'
+import CityComparison from './Routes/City_Comparison'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -20,6 +22,8 @@ function App() {
           <Route path="forecast" element={<Forecast />} />
           <Route path="help" element={<Help />} />
           <Route path="about" element={<About />} />
+          <Route path="airquality" element={<AirQuality/>}/>
+          <Route path="/citycomparison" element={<CityComparison/>}/>
           {/* Fallback route (for non-existing paths), redirecting to Home */}
           <Route path="*" element={<Home />} />
         </Route>

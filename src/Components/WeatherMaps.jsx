@@ -49,7 +49,7 @@ const WeatherMaps = () => {
                         <h1 className="text-3xl font-bold text-white mb-2">Weather Maps</h1>
                         <p className="text-gray-300">Powered by OpenWeather API</p>
                     </div>
-                    <div className="flex gap-2">
+                    {/* <div className="flex gap-2">
                         <button className="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors flex items-center gap-2">
                             <Layers className="w-4 h-4" />
                             Change Layers
@@ -58,7 +58,7 @@ const WeatherMaps = () => {
                             <Maximize2 className="w-4 h-4" />
                             Fullscreen
                         </button>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Map Type Selection */}

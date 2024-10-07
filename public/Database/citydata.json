@@ -1,0 +1,54 @@
+{
+    "cities": [
+      {
+        "id": 1,
+        "name": "London",
+        "country": "UK",
+        "coordinates": {
+          "lat": 51.5074,
+          "lon": -0.1278
+        },
+        "timezone": "Europe/London"
+      },
+      {
+        "id": 2,
+        "name": "New York",
+        "country": "USA",
+        "coordinates": {
+          "lat": 40.7128,
+          "lon": -74.0060
+        },
+        "timezone": "America/New_York"
+      },
+      {
+        "id": 3,
+        "name": "Tokyo",
+        "country": "Japan",
+        "coordinates": {
+          "lat": 35.6762,
+          "lon": 139.6503
+        },
+        "timezone": "Asia/Tokyo"
+      },
+      {
+        "id": 4,
+        "name": "Dubai",
+        "country": "UAE",
+        "coordinates": {
+          "lat": 25.2048,
+          "lon": 55.2708
+        },
+        "timezone": "Asia/Dubai"
+      },
+      {
+        "id": 5,
+        "name": "Mecca",
+        "country": "Saudi Arabia",
+        "coordinates": {
+          "lat": 21.4225,
+          "lon": 39.8262
+        },
+        "timezone": "Asia/Riyadh"
+      }
+    ]
+  }
