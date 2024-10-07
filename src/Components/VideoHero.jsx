@@ -29,35 +29,38 @@ const VideoHero = () => {
             <div className="relative z-10 h-full container mx-auto px-4">
                 <div className="flex flex-col md:flex-row justify-between h-full">
                     {/* Left Side: Intro */}
-                    <div className="flex flex-col justify-center max-w-xl">
-                        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                            Welcome to Our Website
-                        </h1>
-                        <p className="text-xl text-white/90 mb-8">
-                            Discover amazing features and services that will transform your experience.
-                            Join us on this exciting journey.
-                        </p>
+                   
+                        <div data-aos="fade-up-right" className="flex flex-col justify-center max-w-xl">
+                            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+                                Welcome to Our Website
+                            </h1>
+                            <p className="text-xl text-white/90 mb-8">
+                                Discover amazing features and services that will transform your experience.
+                                Join us on this exciting journey.
+                            </p>
 
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <button className="px-8 py-3 bg-white text-black rounded-lg 
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <button className="px-8 py-3 bg-white text-black rounded-lg 
                                hover:bg-white/90 transition-colors 
                                flex items-center justify-center gap-2">
-                                Get Started
-                                <ArrowRight size={20} />
-                            </button>
+                                    Get Started
+                                    <ArrowRight size={20} />
+                                </button>
 
-                            <button className="px-8 py-3 bg-transparent border-2 
+                                <button className="px-8 py-3 bg-transparent border-2 
                                border-white text-white rounded-lg
                                hover:bg-white/10 transition-colors">
-                                Learn More
-                            </button>
+                                    Learn More
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    
 
                     {/* Right Side: CurrentInfo */}
                     <div className="flex flex-col justify-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 ">
-    <CurrentInfo />
-</div>
+                        <CurrentInfo />
+                    
+                    </div>
 
                 </div>
             </div>
