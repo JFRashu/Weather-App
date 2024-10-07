@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 const Forecast_data = () => {
   const [forecasts, setForecasts] = useState(null);
@@ -19,9 +19,6 @@ const Forecast_data = () => {
           }
 
           const data = await response.json();
-          console.log("Forecast Data:", data); // For debugging
-
-          // Process the forecast data
           const processedForecasts = processForecastData(data.list);
           setLocation(data.city.name);
           setForecasts(processedForecasts);
@@ -32,7 +29,6 @@ const Forecast_data = () => {
       }
   };
 
-  // Process the forecast data to group by day
   const processForecastData = (forecastList) => {
       const dailyForecasts = {};
 
@@ -56,13 +52,12 @@ const Forecast_data = () => {
           dailyForecasts[day].times.push(time);
       });
 
-      // Convert to array and calculate daily summary
       return Object.entries(dailyForecasts).map(([day, data]) => ({
           day,
           maxTemp: Math.max(...data.temps),
           minTemp: Math.min(...data.temps),
-          icon: data.icons[0], // Use the first icon of the day
-          description: data.descriptions[0], // Use the first description
+          icon: data.icons[0],
+          description: data.descriptions[0],
           hourlyForecasts: data.temps.map((temp, index) => ({
               time: data.times[index],
               temp,
@@ -91,93 +86,93 @@ const Forecast_data = () => {
   }, []);
 
   if (loading) {
-      return <div className="text-white text-center">Loading forecast data...</div>;
+      return <div className="text-white text-center p-4">Loading forecast data...</div>;
   }
 
   if (error) {
-      return <div className="text-white text-center">{error}</div>;
+      return <div className="text-white text-center p-4">{error}</div>;
   }
 
   return (
-    <div  className="p-4 min-h-screen bg-gradient-to-br from-gray-800 to-gray-900">
-    <h2 className="text-3xl font-bold text-white mb-6 text-center">
-        5-Day Forecast for {location}
-    </h2>
-    <div className="grid grid-cols-1 md:grid-cols-5 gap-6 max-w-7xl mx-auto">
-        {forecasts?.map((forecast, index) => (
-            <div key={index} 
-                className="bg-white/20 backdrop-blur-lg rounded-xl p-6 
-                         shadow-lg hover:shadow-xl transition-all duration-300 
-                         border border-white/10">
-                <div className="text-center">
-                    <h3 className="font-bold text-xl text-white mb-2">
-                        {forecast.day}
-                    </h3>
-                    <img 
-                        src={`https://openweathermap.org/img/wn/${forecast.icon}@2x.png`}
-                        alt={forecast.description}
-                        className="mx-auto w-20 h-20"
-                    />
-                    <p className="capitalize text-white/90 text-lg mb-2">
-                        {forecast.description}
-                    </p>
-                    <p className="text-xl font-semibold text-white mb-4">
-                        <span className="text-red-300">{forecast.maxTemp}°C</span> / 
-                        <span className="text-blue-300">{forecast.minTemp}°C</span>
-                    </p>
-                </div>
-                
-                <div className="mt-4">
-                    <h4 className="font-semibold text-white/90 mb-3 text-lg">
-                        Hourly Forecast
-                    </h4>
-                    <div className="space-y-3 max-h-48 overflow-y-auto 
-                                  scrollbar-thin scrollbar-thumb-white/20 
-                                  scrollbar-track-transparent pr-2">
-                        {forecast.hourlyForecasts.map((hourly, idx) => (
-                            <div key={idx} 
-                                className="flex items-center justify-between 
-                                         bg-black/20 rounded-lg p-2">
-                                <span className="text-white/80">
-                                    {hourly.time}
-                                </span>
-                                <div className="flex items-center gap-2">
-                                    <img 
-                                        src={`https://openweathermap.org/img/wn/${hourly.icon}.png`}
-                                        alt={hourly.description}
-                                        className="w-8 h-8"
-                                    />
-                                    <span className="text-white font-medium">
-                                        {hourly.temp}°C
-                                    </span>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        ))}
+    <div className="min-h-screen bg-gradient-to-br from-gray-800 to-gray-900 px-2 sm:px-4 md:px-6 lg:px-8 py-4 md:py-6">
+      <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6 text-center">
+          5-Day Forecast for {location}
+      </h2>
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 max-w-[2000px] mx-auto">
+          {forecasts?.map((forecast, index) => (
+              <div key={index} 
+                  className="bg-white/20 backdrop-blur-lg rounded-xl p-4 sm:p-6 
+                           shadow-lg hover:shadow-xl transition-all duration-300 
+                           border border-white/10 flex flex-col h-full">
+                  <div className="text-center flex-none">
+                      <h3 className="font-bold text-lg sm:text-xl text-white mb-2">
+                          {forecast.day}
+                      </h3>
+                      <img 
+                          src={`https://openweathermap.org/img/wn/${forecast.icon}@2x.png`}
+                          alt={forecast.description}
+                          className="mx-auto w-16 h-16 sm:w-20 sm:h-20"
+                      />
+                      <p className="capitalize text-white/90 text-base sm:text-lg mb-2">
+                          {forecast.description}
+                      </p>
+                      <p className="text-lg sm:text-xl font-semibold text-white mb-4">
+                          <span className="text-red-300">{forecast.maxTemp}°C</span>
+                          <span className="mx-2">/</span>
+                          <span className="text-blue-300">{forecast.minTemp}°C</span>
+                      </p>
+                  </div>
+                  
+                  <div className="flex-grow">
+                      <h4 className="font-semibold text-white/90 mb-3 text-base sm:text-lg">
+                          Hourly Forecast
+                      </h4>
+                      <div className="space-y-2 max-h-36 sm:max-h-48 overflow-y-auto 
+                                    scrollbar-thin scrollbar-thumb-white/20 
+                                    scrollbar-track-transparent pr-2">
+                          {forecast.hourlyForecasts.map((hourly, idx) => (
+                              <div key={idx} 
+                                  className="flex items-center justify-between 
+                                           bg-black/20 rounded-lg p-2">
+                                  <span className="text-white/80 text-sm sm:text-base">
+                                      {hourly.time}
+                                  </span>
+                                  <div className="flex items-center gap-2">
+                                      <img 
+                                          src={`https://openweathermap.org/img/wn/${hourly.icon}.png`}
+                                          alt={hourly.description}
+                                          className="w-6 h-6 sm:w-8 sm:h-8"
+                                      />
+                                      <span className="text-white font-medium text-sm sm:text-base">
+                                          {hourly.temp}°C
+                                      </span>
+                                  </div>
+                              </div>
+                          ))}
+                      </div>
+                  </div>
+              </div>
+          ))}
+      </div>
+
+      {loading && (
+          <div className="fixed inset-0 flex items-center justify-center bg-gray-900/50 backdrop-blur-sm">
+              <div className="text-lg sm:text-xl text-white font-semibold px-6 py-4">
+                  Loading forecast data...
+              </div>
+          </div>
+      )}
+
+      {error && (
+          <div className="fixed inset-0 flex items-center justify-center bg-gray-900/50 backdrop-blur-sm">
+              <div className="text-red-400 text-lg sm:text-xl font-semibold bg-gray-800 p-4 sm:p-6 rounded-lg max-w-[90%] text-center">
+                  {error}
+              </div>
+          </div>
+      )}
     </div>
-
-    {/* Loading State */}
-    {loading && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900/50 backdrop-blur-sm">
-            <div className="text-white text-xl font-semibold">
-                Loading forecast data...
-            </div>
-        </div>
-    )}
-
-    {/* Error State */}
-    {error && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900/50 backdrop-blur-sm">
-            <div className="text-red-400 text-xl font-semibold bg-gray-800 p-6 rounded-lg">
-                {error}
-            </div>
-        </div>
-    )}
-</div>
   );
 }
 
-export default Forecast_data
+export default Forecast_data;
