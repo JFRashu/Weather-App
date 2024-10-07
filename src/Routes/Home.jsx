@@ -1,12 +1,14 @@
 import React from 'react'
 import VideoHero from '../Components/VideoHero'
-import { CurrentInfo } from '../Components/CurrentInfo'
+
+import  Forecast  from '../Components/Forecast_data'
 
 const Home = () => {
   return (
     <div >
       <VideoHero/>
       {/* <CurrentInfo/> */}
+      <Forecast/>
     </div>
   )
 }
