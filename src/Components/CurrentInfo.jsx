@@ -97,7 +97,7 @@ export const CurrentInfo = () => {
     }
 
     return (
-        <div className="card bg-transparent align-middle items-baseline shadow-xl">
+        <div className="card align-middle items-baseline shadow-xl">
             <div className="card-body text-white">
                 <div className="flex items-center gap-4">
                     <h2 className="card-title text-2xl">{location || "Unknown Location"}</h2>

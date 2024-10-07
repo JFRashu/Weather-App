@@ -99,7 +99,7 @@ const Forecast_data = () => {
   }
 
   return (
-    <div className="p-4 min-h-screen bg-gradient-to-br from-gray-800 to-gray-900">
+    <div  className="p-4 min-h-screen bg-gradient-to-br from-gray-800 to-gray-900">
     <h2 className="text-3xl font-bold text-white mb-6 text-center">
         5-Day Forecast for {location}
     </h2>
