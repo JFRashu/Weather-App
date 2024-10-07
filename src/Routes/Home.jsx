@@ -1,9 +1,10 @@
 import React from 'react'
+import VideoHero from '../Components/VideoHero'
 
 const Home = () => {
   return (
-    <div className='min-h-[80%]'>
-      
+    <div >
+      <VideoHero/>
     </div>
   )
 }
