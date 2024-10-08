@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { 
   Sun, Moon, Search, MapPin, 
   Sunrise, Sunset, Clock, 
@@ -19,11 +18,29 @@ const CityComparison = () => {
 
   const apiKey = '451fe90208126ce549ad47c3769a62ad';
 
-  // Quick compare cities data
   const quickCompareCities = {
-    dhaka: { name: "Dhaka", coordinates: { lat:  23.777176, lon: 90.399452} },
+    dhaka: { name: "Dhaka", coordinates: { lat: 23.777176, lon: 90.399452} },
     newYork: { name: "New York", coordinates: { lat: 40.7128, lon: -74.0060 } },
     london: { name: "London", coordinates: { lat: 51.5074, lon: -0.1278 } }
+  };
+
+  // Improved search function with debouncing
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    if (query.trim() && cityData?.cities) {
+      const results = cityData.cities
+        .filter(city => {
+          const searchLower = query.toLowerCase();
+          return (
+            city.name.toLowerCase().includes(searchLower) ||
+            city.country.toLowerCase().includes(searchLower)
+          );
+        })
+        .slice(0, 6); // Show top 6 matches
+      setSearchResults(results);
+    } else {
+      setSearchResults([]);
+    }
   };
 
   const fetchCityData = async (lat, lon, setStateFunction) => {
@@ -136,92 +153,109 @@ const CityComparison = () => {
     fetchCityData(selectedCity.coordinates.lat, selectedCity.coordinates.lon, setComparisonCity);
   };
 
-  const handleSearch = (query) => {
-    setSearchQuery(query);
-    if (query.length > 2 && cityData?.cities) {
-      const results = cityData.cities
-        .filter(city => 
-          city.name.toLowerCase().includes(query.toLowerCase())
-        )
-        .slice(0, 5); // Limit to top 5 matches
-      setSearchResults(results);
-    } else {
-      setSearchResults([]);
-    }
-  };
-
   return (
-    <div className="min-h-screen pt-16 bg-gradient-to-br from-gray-800 to-gray-900 p-4 md:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 text-center">
-          City Comparison
-        </h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-800 to-gray-900">
+      {/* Main container with proper navbar padding */}
+      <div className="container mx-auto px-4 py-24 md:py-28 lg:py-32">
+        {/* Header Section */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6">
+            Compare Weather Worldwide
+          </h1>
+          <p className="text-gray-300 text-center mb-8 max-w-2xl mx-auto">
+            Compare weather conditions, prayer times, and daylight information between your location and cities around the world.
+          </p>
+        </div>
 
-        {/* Search Section */}
-        <div className="mb-8">
-          {/* Search Bar */}
-          <div className="relative mb-4">
-            <div className="flex items-center bg-white/10 rounded-lg p-3">
+        {/* Search Section with improved styling */}
+        <div className="max-w-2xl mx-auto mb-12">
+          <div className="relative">
+            <div className="flex items-center bg-white/10 rounded-xl p-4 backdrop-blur-sm border border-white/10 transition-all duration-300 focus-within:border-white/20 focus-within:bg-white/15">
               <Search className="h-5 w-5 text-white/60 mr-3" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
-                placeholder="Search for a city to compare..."
-                className="bg-transparent text-white placeholder-white/60 flex-1 outline-none"
+                placeholder="Search for any city..."
+                className="bg-transparent text-white placeholder-white/60 flex-1 outline-none text-lg"
               />
             </div>
             
-            {/* Enhanced Search Results Dropdown */}
+            {/* Improved Search Results Dropdown */}
             {searchResults.length > 0 && (
-              <div className="absolute w-full mt-2 bg-gray-800 rounded-lg shadow-xl z-10 border border-gray-700">
-                {searchResults.map(city => (
+              <div className="absolute w-full mt-2 bg-gray-800/95 backdrop-blur-md rounded-xl shadow-xl z-10 border border-gray-700 overflow-hidden">
+                {searchResults.map((city, index) => (
                   <button
-                    key={city.id}
+                    key={city.id || index}
                     onClick={() => selectCity(city)}
-                    className="w-full text-left px-4 py-3 hover:bg-white/5 text-white flex items-center space-x-2"
+                    className="w-full text-left px-4 py-3 hover:bg-white/10 text-white flex items-center space-x-3 transition-colors duration-200"
                   >
-                    <MapPin className="h-4 w-4 text-blue-400" />
-                    <span>{city.name}, {city.country}</span>
+                    <MapPin className="h-5 w-5 text-blue-400 flex-shrink-0" />
+                    <div>
+                      <span className="font-medium">{city.name}</span>
+                      <span className="text-gray-400 ml-2">{city.country}</span>
+                    </div>
                   </button>
                 ))}
               </div>
             )}
           </div>
 
-          {/* Quick Compare Buttons */}
-          <div className="flex flex-wrap gap-3 justify-center">
-            <Button
-              onClick={() => handleQuickCompare('dhaka')}
-              variant="outline"
-              className="bg-white/10 text-white hover:bg-white/20"
-            >
-              Compare with Dhaka
-            </Button>
-            <Button
-              onClick={() => handleQuickCompare('newYork')}
-              variant="outline"
-              className="bg-white/10 text-white hover:bg-white/20"
-            >
-              Compare with New York
-            </Button>
-            <Button
-              onClick={() => handleQuickCompare('london')}
-              variant="outline"
-              className="bg-white/10 text-white hover:bg-white/20"
-            >
-              Compare with London
-            </Button>
+          {/* Quick Compare Section */}
+          <div className="mt-6">
+            <p className="text-white/70 text-center mb-4">Quick Compare with Popular Cities</p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              {Object.entries(quickCompareCities).map(([key, city]) => (
+                <Button
+                  key={key}
+                  onClick={() => handleQuickCompare(key)}
+                  variant="outline"
+                  className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm transition-all duration-300 px-6 py-2 rounded-full"
+                >
+                  {city.name}
+                </Button>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* City Comparison Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <CityCard cityData={currentCity} title="Your Location" />
-          <CityCard cityData={comparisonCity} title="Comparison City" />
+        {/* City Comparison Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+          <div className="h-full">
+            <CityCard 
+              cityData={currentCity} 
+              title="Your Location" 
+              className="h-full backdrop-blur-sm bg-white/10 rounded-2xl p-6 border border-white/10"
+            />
+          </div>
+          <div className="h-full">
+            <CityCard 
+              cityData={comparisonCity} 
+              title="Comparison City" 
+              className="h-full backdrop-blur-sm bg-white/10 rounded-2xl p-6 border border-white/10"
+            />
+          </div>
         </div>
+
+        {/* Loading State */}
+        {loading && (
+          <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="bg-gray-800 p-6 rounded-xl shadow-xl">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
+              <p className="text-white mt-4">Loading city data...</p>
+            </div>
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && (
+          <div className="fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-xl">
+            {error}
+          </div>
+        )}
       </div>
     </div>
   );
 };
+
 export default CityComparison;
