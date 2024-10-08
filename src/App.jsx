@@ -4,8 +4,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './Routes/Layout'
 import Home from './Routes/Home'
 import Forecast from './Routes/Forecast'
-import Help from './Routes/Help'
-import { About } from './Routes/About'
+// import Help from './Routes/Help'
+// import { About } from './Routes/About'
 import AirQuality from './Routes/AirQuality'
 import CityComparison from './Routes/City_Comparison'
 import { useEffect } from 'react'
@@ -27,8 +27,8 @@ function App() {
           {/* Use 'index' for the home page route */}
           <Route index element={<Home />} />  {/* Home route */}
           <Route path="forecast" element={<Forecast />} />
-          <Route path="help" element={<Help />} />
-          <Route path="about" element={<About />} />
+          {/* <Route path="help" element={<Help />} />
+          <Route path="about" element={<About />} /> */}
           <Route path="airquality" element={<AirQuality/>}/>
           <Route path="/citycomparison" element={<CityComparison/>}/>
           {/* Fallback route (for non-existing paths), redirecting to Home */}
