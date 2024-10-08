@@ -9,7 +9,7 @@ const Layout = () => {
          {/* Navbar (self-closing tag) */}
          <Navbar />
       {/* Outlet (self-closing tag) */}
-      <Outlet className='my-8'/>
+      <Outlet/>
       {/* Footer (self-closing tag) */}
       <Footer />
    </>
