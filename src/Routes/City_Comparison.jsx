@@ -28,6 +28,34 @@ const CityComparison = () => {
     london: { name: "London", coordinates: { lat: 51.5074, lon: -0.1278 } }
   };
 
+  const formatTimeToLocal = (timeStr) => {
+    // Convert "HH:mm" format to "HH:mm AM/PM"
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hours);
+    date.setMinutes(minutes);
+    return date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+  };
+
+  const calculateDayLength = (sunrise, sunset) => {
+    const [sunriseHours, sunriseMinutes] = sunrise.split(':').map(Number);
+    const [sunsetHours, sunsetMinutes] = sunset.split(':').map(Number);
+    
+    let diffHours = sunsetHours - sunriseHours;
+    let diffMinutes = sunsetMinutes - sunriseMinutes;
+    
+    if (diffMinutes < 0) {
+      diffHours -= 1;
+      diffMinutes += 60;
+    }
+    
+    return `${diffHours}h ${diffMinutes}m`;
+  };
+
   // Calculate prayer duration windows
   const calculatePrayerWindows = (prayers) => {
     const addMinutes = (time, minutes) => {
@@ -43,31 +71,101 @@ const CityComparison = () => {
 
     return {
       fajr: {
-        start: prayers.fajr,
-        end: addMinutes(prayers.fajr, 45),
-        karaha: addMinutes(prayers.sunrise, -15)
+        start: formatTimeToLocal(prayers.Fajr),
+        end: addMinutes(prayers.Fajr, 45),
+        karaha: addMinutes(prayers.Sunrise, -15)
       },
       dhuhr: {
-        start: prayers.dhuhr,
-        end: addMinutes(prayers.dhuhr, 45),
-        karaha: addMinutes(prayers.asr, -15)
+        start: formatTimeToLocal(prayers.Dhuhr),
+        end: addMinutes(prayers.Dhuhr, 45),
+        karaha: addMinutes(prayers.Asr, -15)
       },
       asr: {
-        start: prayers.asr,
-        end: addMinutes(prayers.asr, 45),
-        karaha: addMinutes(prayers.maghrib, -15)
+        start: formatTimeToLocal(prayers.Asr),
+        end: addMinutes(prayers.Asr, 45),
+        karaha: addMinutes(prayers.Maghrib, -15)
       },
       maghrib: {
-        start: prayers.maghrib,
-        end: addMinutes(prayers.maghrib, 45),
-        karaha: addMinutes(prayers.isha, -15)
+        start: formatTimeToLocal(prayers.Maghrib),
+        end: addMinutes(prayers.Maghrib, 45),
+        karaha: addMinutes(prayers.Isha, -15)
       },
       isha: {
-        start: prayers.isha,
-        end: addMinutes(prayers.isha, 45),
-        karaha: addMinutes(prayers.fajr, -15) // Next day's Fajr
+        start: formatTimeToLocal(prayers.Isha),
+        end: addMinutes(prayers.Isha, 45),
+        karaha: addMinutes(prayers.Fajr, -15)
       }
     };
+  };
+
+  const fetchCityData = async (lat, lon, setStateFunction) => {
+    try {
+      setLoading(true);
+      
+      // Fetch weather data
+      const weatherResponse = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
+      );
+      
+      // Fetch timing data from Aladhan API
+      const today = new Date();
+      const month = today.getMonth() + 1;
+      const year = today.getFullYear();
+      const date = today.getDate();
+      
+      const timingResponse = await fetch(
+        `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${lat}&longitude=${lon}&method=2`
+      );
+      
+      if (!weatherResponse.ok || !timingResponse.ok) {
+        throw new Error('Failed to fetch data');
+      }
+
+      const weatherData = await weatherResponse.json();
+      const timingData = await timingResponse.json();
+      const todayTimings = timingData.data[date - 1].timings;
+
+      // Format all prayer times and sun positions
+      const prayers = {
+        fajr: formatTimeToLocal(todayTimings.Fajr.split(' ')[0]),
+        sunrise: formatTimeToLocal(todayTimings.Sunrise.split(' ')[0]),
+        dhuhr: formatTimeToLocal(todayTimings.Dhuhr.split(' ')[0]),
+        asr: formatTimeToLocal(todayTimings.Asr.split(' ')[0]),
+        maghrib: formatTimeToLocal(todayTimings.Maghrib.split(' ')[0]),
+        isha: formatTimeToLocal(todayTimings.Isha.split(' ')[0])
+      };
+
+      const prayerWindows = calculatePrayerWindows(todayTimings);
+
+      setStateFunction({
+        name: weatherData.name,
+        country: weatherData.sys.country,
+        weather: {
+          temp: Math.round(weatherData.main.temp),
+          feels_like: Math.round(weatherData.main.feels_like),
+          humidity: weatherData.main.humidity,
+          wind_speed: weatherData.wind.speed,
+          description: weatherData.weather[0].description,
+          icon: weatherData.weather[0].icon
+        },
+        sun: {
+          sunrise: formatTimeToLocal(todayTimings.Sunrise.split(' ')[0]),
+          sunset: formatTimeToLocal(todayTimings.Sunset.split(' ')[0]),
+          dayLength: calculateDayLength(
+            todayTimings.Sunrise.split(' ')[0],
+            todayTimings.Sunset.split(' ')[0]
+          )
+        },
+        prayers,
+        prayerWindows,
+        meta: timingData.data[date - 1].meta // Include meta information from Aladhan
+      });
+    } catch (error) {
+      setError(error.message);
+      setShowAlert(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSearch = (query) => {
@@ -93,77 +191,6 @@ const CityComparison = () => {
     } else {
       setSearchResults([]);
     }
-  };
-
-  const fetchCityData = async (lat, lon, setStateFunction) => {
-    try {
-      setLoading(true);
-      const weatherResponse = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
-      );
-      const today = new Date();
-      const prayerResponse = await fetch(
-        `https://api.aladhan.com/v1/calendar/${today.getFullYear()}/${today.getMonth() + 1}?latitude=${lat}&longitude=${lon}&method=2`
-      );
-      
-      if (!weatherResponse.ok || !prayerResponse.ok) {
-        throw new Error('Failed to fetch data');
-      }
-
-      const weatherData = await weatherResponse.json();
-      const prayerData = await prayerResponse.json();
-      const todayPrayers = prayerData.data[today.getDate() - 1].timings;
-
-      const prayers = {
-        fajr: formatPrayerTime(todayPrayers.Fajr),
-        sunrise: formatPrayerTime(todayPrayers.Sunrise),
-        dhuhr: formatPrayerTime(todayPrayers.Dhuhr),
-        asr: formatPrayerTime(todayPrayers.Asr),
-        maghrib: formatPrayerTime(todayPrayers.Maghrib),
-        isha: formatPrayerTime(todayPrayers.Isha)
-      };
-
-      const prayerWindows = calculatePrayerWindows(prayers);
-
-      setStateFunction({
-        name: weatherData.name,
-        country: weatherData.sys.country,
-        weather: {
-          temp: Math.round(weatherData.main.temp),
-          feels_like: Math.round(weatherData.main.feels_like),
-          humidity: weatherData.main.humidity,
-          wind_speed: weatherData.wind.speed,
-          description: weatherData.weather[0].description,
-          icon: weatherData.weather[0].icon
-        },
-        sun: {
-          sunrise: new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString(),
-          sunset: new Date(weatherData.sys.sunset * 1000).toLocaleTimeString(),
-          dayLength: calculateDayLength(
-            weatherData.sys.sunrise * 1000,
-            weatherData.sys.sunset * 1000
-          )
-        },
-        prayers,
-        prayerWindows
-      });
-    } catch (error) {
-      setError(error.message);
-      setShowAlert(true);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const calculateDayLength = (sunrise, sunset) => {
-    const diff = sunset - sunrise;
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    return `${hours}h ${minutes}m`;
-  };
-
-  const formatPrayerTime = (time) => {
-    return time.split(' ')[0];
   };
 
   const selectCity = (city) => {
@@ -208,7 +235,6 @@ const CityComparison = () => {
       setLoading(false);
     }
   }, []);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-800 to-gray-900">
       <div className="container mx-auto px-4 py-24 md:py-28 lg:py-32">
