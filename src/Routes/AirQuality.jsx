@@ -15,6 +15,14 @@ const AirQuality = () => {
   
   const apiKey = '451fe90208126ce549ad47c3769a62ad';
 
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString(undefined, {
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric'
+    });
+  };
   const getAQICategory = (aqi) => {
     const categories = [
       { range: [0, 50], label: 'Good', color: '#10B981', textColor: 'text-emerald-500' },
@@ -114,67 +122,95 @@ const AirQuality = () => {
   }
 
   const aqiCategory = getAQICategory(currentAQI);
+ // Process historical data to show fewer points
+  const processHistoricalData = (data) => {
+    // Show only every 6th point (4 points per day instead of 24)
+    return data.filter((_, index) => index % 6 === 0).map(item => ({
+      ...item,
+      timestamp: formatTimestamp(item.timestamp)
+    }));
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-800 to-gray-900 p-4 md:p-6 lg:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-800 to-gray-900">
+       <div className="container mx-auto px-4 py-24 md:py-28 lg:py-32">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 text-center">
+        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6 text-center">
           Air Quality Index Dashboard
         </h1>
 
-        {/* Current AQI */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div className="bg-white/10 rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-white">Current AQI</h2>
-              <Wind className="h-6 w-6 text-white/60" />
+        {/* Current AQI and Health Advisory */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6 mb-3 sm:mb-4 md:mb-6">
+          {/* Current AQI Card */}
+          <div className="bg-white/10 rounded-lg p-4 sm:p-6">
+            <div className="flex items-center justify-between mb-2 sm:mb-4">
+              <h2 className="text-lg sm:text-xl font-semibold text-white">Current AQI</h2>
+              <Wind className="h-5 w-5 sm:h-6 sm:w-6 text-white/60" />
             </div>
             <div className="flex items-center justify-center space-x-4">
-              <div className={`text-6xl font-bold ${aqiCategory.textColor}`}>
+              <div className={`text-4xl sm:text-5xl md:text-6xl font-bold ${aqiCategory.textColor}`}>
                 {currentAQI}
               </div>
               <div className="text-right">
-                <div className={`text-xl font-semibold ${aqiCategory.textColor}`}>
+                <div className={`text-lg sm:text-xl font-semibold ${aqiCategory.textColor}`}>
                   {aqiCategory.label}
                 </div>
-                <div className="text-white/60">Air Quality Index</div>
+                <div className="text-sm sm:text-base text-white/60">Air Quality Index</div>
               </div>
             </div>
           </div>
 
-          {/* Health Recommendations */}
-          <div className="bg-white/10 rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-white">Health Advisory</h2>
-              <Heart className="h-6 w-6 text-red-400" />
+          {/* Health Advisory Card */}
+          <div className="bg-white/10 rounded-lg p-4 sm:p-6">
+            <div className="flex items-center justify-between mb-2 sm:mb-4">
+              <h2 className="text-lg sm:text-xl font-semibold text-white">Health Advisory</h2>
+              <Heart className="h-5 w-5 sm:h-6 sm:w-6 text-red-400" />
             </div>
-            <p className="text-white/80">
+            <p className="text-sm sm:text-base text-white/80">
               {getHealthRecommendation(currentAQI)}
             </p>
           </div>
         </div>
 
         {/* Pollutant Levels */}
-        <div className="bg-white/10 rounded-lg p-6 mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold text-white">Pollutant Levels</h2>
-            <AlertTriangle className="h-6 w-6 text-yellow-400" />
+        <div className="bg-white/10 rounded-lg p-4 sm:p-6 mb-3 sm:mb-4 md:mb-6">
+          <div className="flex items-center justify-between mb-2 sm:mb-4">
+            <h2 className="text-lg sm:text-xl font-semibold text-white">Pollutant Levels</h2>
+            <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-400" />
           </div>
-          <div className="h-[300px]">
+          <div className="h-[250px] sm:h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={[pollutants]} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+              <BarChart 
+                data={[pollutants]} 
+                margin={{ 
+                  top: 20, 
+                  right: 10, 
+                  left: -10, 
+                  bottom: 5 
+                }}
+              >
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                <XAxis dataKey="name" stroke="rgba(255,255,255,0.5)" />
-                <YAxis stroke="rgba(255,255,255,0.5)" />
+                <XAxis 
+                  dataKey="name" 
+                  stroke="rgba(255,255,255,0.5)" 
+                  tick={{ fontSize: 12 }}
+                />
+                <YAxis 
+                  stroke="rgba(255,255,255,0.5)" 
+                  tick={{ fontSize: 12 }}
+                />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: 'rgba(0,0,0,0.8)',
                     border: 'none',
                     borderRadius: '8px',
-                    color: 'white'
+                    color: 'white',
+                    fontSize: '12px'
                   }}
                 />
-                <Legend />
+                <Legend 
+                  wrapperStyle={{ fontSize: '12px' }}
+                />
                 <Bar dataKey="co" name="CO" fill="#EF4444" />
                 <Bar dataKey="no2" name="NO₂" fill="#F59E0B" />
                 <Bar dataKey="o3" name="O₃" fill="#10B981" />
@@ -187,46 +223,62 @@ const AirQuality = () => {
         </div>
 
         {/* AQI Trend */}
-        <div className="bg-white/10 rounded-lg p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold text-white">AQI Trend (Last 5 Days)</h2>
-            <TrendingUp className="h-6 w-6 text-blue-400" />
+        <div className="bg-white/10 rounded-lg p-4 sm:p-6">
+          <div className="flex items-center justify-between mb-2 sm:mb-4">
+            <h2 className="text-lg sm:text-xl font-semibold text-white">AQI Trend (Last 5 Days)</h2>
+            <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400" />
           </div>
-          <div className="h-[300px]">
+          <div className="h-[250px] sm:h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={historicalData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+              <LineChart 
+                data={processHistoricalData(historicalData)}
+                margin={{ 
+                  top: 20, 
+                  right: 10, 
+                  left: -10, 
+                  bottom: 60 
+                }}
+              >
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                 <XAxis 
                   dataKey="timestamp" 
                   stroke="rgba(255,255,255,0.5)"
                   angle={-45}
                   textAnchor="end"
-                  height={80}
+                  height={60}
+                  tick={{ fontSize: 12 }}
+                  interval={0}
                 />
-                <YAxis stroke="rgba(255,255,255,0.5)" />
+                <YAxis 
+                  stroke="rgba(255,255,255,0.5)" 
+                  tick={{ fontSize: 12 }}
+                />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: 'rgba(0,0,0,0.8)',
                     border: 'none',
                     borderRadius: '8px',
-                    color: 'white'
+                    color: 'white',
+                    fontSize: '12px'
                   }}
                 />
-                <Legend />
+                <Legend 
+                  wrapperStyle={{ fontSize: '12px' }}
+                />
                 <Line 
                   type="monotone" 
                   dataKey="aqi" 
                   name="AQI" 
                   stroke="#60A5FA" 
                   strokeWidth={2}
-                  dot={{ fill: '#60A5FA' }}
+                  dot={{ fill: '#60A5FA', r: 4 }}
                 />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
       </div>
-    </div>
+    </div></div>
   );
 };
 

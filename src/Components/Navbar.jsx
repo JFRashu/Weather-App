@@ -31,8 +31,8 @@ const Navbar = () => {
             <li><Link to="/forecast" className="hover:bg-white/50 rounded-lg">Forecast</Link></li>
             <li><Link to="/airquality" className="hover:bg-white/50 rounded-lg">Air Quality</Link></li>
             <li><Link to="/citycomparison" className="hover:bg-white/50 rounded-lg">Compare My City Weather</Link></li>
-            <li><Link to="/help" className="hover:bg-white/50 rounded-lg">Help</Link></li>
-            <li><Link to="/about" className="hover:bg-white/50 rounded-lg">About</Link></li>
+            {/* <li><Link to="/help" className="hover:bg-white/50 rounded-lg">Help</Link></li>
+            <li><Link to="/about" className="hover:bg-white/50 rounded-lg">About</Link></li> */}
           </ul>
         </div>
       </div>

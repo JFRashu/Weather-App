@@ -144,6 +144,7 @@ const Forecast = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-800 to-gray-900 p-4 md:p-6 lg:p-8">
+       <div className="container mx-auto px-4 py-24 md:py-28 lg:py-32">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 text-center">
           Weather Forecast Analysis for {location}
@@ -293,6 +294,7 @@ const Forecast = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
