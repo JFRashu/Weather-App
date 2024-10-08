@@ -40,7 +40,7 @@ const Navbar = () => {
       {/* Center section with absolute positioning for perfect centering */}
       <div className="absolute left-1/2 transform -translate-x-1/2">
         <img 
-          src="/public/Images/breez_logo.png" 
+          src="/Images/breez_logo.png" 
           alt="Weather Icon" 
           className="h-8 w-auto sm:h-10 md:h-12 object-contain" 
         />

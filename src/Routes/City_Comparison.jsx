@@ -28,6 +28,48 @@ const CityComparison = () => {
     london: { name: "London", coordinates: { lat: 51.5074, lon: -0.1278 } }
   };
 
+  // Calculate prayer duration windows
+  const calculatePrayerWindows = (prayers) => {
+    const addMinutes = (time, minutes) => {
+      const [hours, mins] = time.split(':').map(Number);
+      const date = new Date();
+      date.setHours(hours, mins + minutes);
+      return date.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        hour12: true 
+      });
+    };
+
+    return {
+      fajr: {
+        start: prayers.fajr,
+        end: addMinutes(prayers.fajr, 45),
+        karaha: addMinutes(prayers.sunrise, -15)
+      },
+      dhuhr: {
+        start: prayers.dhuhr,
+        end: addMinutes(prayers.dhuhr, 45),
+        karaha: addMinutes(prayers.asr, -15)
+      },
+      asr: {
+        start: prayers.asr,
+        end: addMinutes(prayers.asr, 45),
+        karaha: addMinutes(prayers.maghrib, -15)
+      },
+      maghrib: {
+        start: prayers.maghrib,
+        end: addMinutes(prayers.maghrib, 45),
+        karaha: addMinutes(prayers.isha, -15)
+      },
+      isha: {
+        start: prayers.isha,
+        end: addMinutes(prayers.isha, 45),
+        karaha: addMinutes(prayers.fajr, -15) // Next day's Fajr
+      }
+    };
+  };
+
   const handleSearch = (query) => {
     setSearchQuery(query);
     setCityNotFound(false);
@@ -72,6 +114,17 @@ const CityComparison = () => {
       const prayerData = await prayerResponse.json();
       const todayPrayers = prayerData.data[today.getDate() - 1].timings;
 
+      const prayers = {
+        fajr: formatPrayerTime(todayPrayers.Fajr),
+        sunrise: formatPrayerTime(todayPrayers.Sunrise),
+        dhuhr: formatPrayerTime(todayPrayers.Dhuhr),
+        asr: formatPrayerTime(todayPrayers.Asr),
+        maghrib: formatPrayerTime(todayPrayers.Maghrib),
+        isha: formatPrayerTime(todayPrayers.Isha)
+      };
+
+      const prayerWindows = calculatePrayerWindows(prayers);
+
       setStateFunction({
         name: weatherData.name,
         country: weatherData.sys.country,
@@ -91,13 +144,8 @@ const CityComparison = () => {
             weatherData.sys.sunset * 1000
           )
         },
-        prayers: {
-          fajr: formatPrayerTime(todayPrayers.Fajr),
-          dhuhr: formatPrayerTime(todayPrayers.Dhuhr),
-          asr: formatPrayerTime(todayPrayers.Asr),
-          maghrib: formatPrayerTime(todayPrayers.Maghrib),
-          isha: formatPrayerTime(todayPrayers.Isha)
-        }
+        prayers,
+        prayerWindows
       });
     } catch (error) {
       setError(error.message);
@@ -130,7 +178,8 @@ const CityComparison = () => {
   };
 
   useEffect(() => {
-    fetch(`/public/Database/cityData.json`)
+    // Load city database
+    fetch('/Database/citydata.json')
       .then((response) => response.json())
       .then((data) => setCityData(data))
       .catch((error) => {
@@ -139,6 +188,7 @@ const CityComparison = () => {
         setShowAlert(true);
       });
 
+    // Get current location
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -165,10 +215,10 @@ const CityComparison = () => {
         {/* Header Section */}
         <div className="max-w-4xl mx-auto mb-12">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6">
-            Compare Weather Worldwide
+            Compare Weather & Prayer Times
           </h1>
           <p className="text-gray-300 text-center mb-8 max-w-2xl mx-auto">
-            Compare weather conditions, prayer times, and daylight information between your location and cities around the world.
+            Compare weather conditions, prayer times, and prayer duration windows between your location and cities worldwide.
           </p>
         </div>
 
@@ -186,21 +236,18 @@ const CityComparison = () => {
               />
             </div>
 
-            {/* City Not Found Alert */}
+            {/* Search Results and Alerts */}
             {showAlert && cityNotFound && (
-              <div className="mt-4">
-                <Alert variant="destructive">
-                  <AlertTitle>City Not Found</AlertTitle>
-                  <AlertDescription>
-                    Sorry, we couldn't find the city you're looking for. Please try another search.
-                  </AlertDescription>
-                </Alert>
-              </div>
+              <Alert variant="destructive" className="mt-4">
+                <AlertTitle>City Not Found</AlertTitle>
+                <AlertDescription>
+                  Sorry, we couldn't find the city you're looking for. Please try another search.
+                </AlertDescription>
+              </Alert>
             )}
 
-            {/* Search Results Dropdown */}
             {searchResults.length > 0 && (
-              <div className="absolute w-full mt-2 bg-gray-800/95 backdrop-blur-md rounded-xl shadow-xl z-10 border border-gray-700 overflow-hidden">
+              <div className="absolute w-full mt-2 bg-gray-800/95 backdrop-blur-md rounded-xl shadow-xl z-10 border border-gray-700">
                 {searchResults.map((city, index) => (
                   <button
                     key={city.id || index}
@@ -227,7 +274,7 @@ const CityComparison = () => {
                   key={key}
                   onClick={() => handleQuickCompare(key)}
                   variant="outline"
-                  className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm transition-all duration-300 px-6 py-2 rounded-full"
+                  className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
                 >
                   {city.name}
                 </Button>
@@ -236,8 +283,9 @@ const CityComparison = () => {
           </div>
         </div>
 
-        {/* City Comparison Cards */}
+        {/* City Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+          {/* Comparison City Card */}
           <div className="h-full">
             {comparisonCity ? (
               <CityCard 
@@ -255,6 +303,8 @@ const CityComparison = () => {
               </div>
             )}
           </div>
+
+          {/* Current Location Card */}
           <div className="h-full">
             <CityCard 
               cityData={currentCity} 
@@ -265,19 +315,12 @@ const CityComparison = () => {
         </div>
 
         {/* Weather Comparison Section */}
-        {currentCity && (
+        {currentCity && comparisonCity && (
           <div className="mt-12">
-            {comparisonCity ? (
-              <WeatherComparison
-                currentCity={currentCity}
-                comparisonCity={comparisonCity}
-              />
-            ) : (
-              <div className="text-center text-white/70 p-8 backdrop-blur-sm bg-white/10 rounded-2xl border border-white/10">
-                <p className="text-xl font-medium">Add a city to compare weather conditions</p>
-                <p className="mt-2">Search for a city above to see detailed weather comparisons</p>
-              </div>
-            )}
+            <WeatherComparison
+              currentCity={currentCity}
+              comparisonCity={comparisonCity}
+            />
           </div>
         )}
 
