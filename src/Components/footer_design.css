@@ -1,0 +1,37 @@
+/* Social Icons Animation */
+.social-icon-instagram,
+.social-icon-github,
+.social-icon-linkedin,
+.social-icon-facebook,
+.social-icon-twitter {
+  @apply relative flex items-center justify-center cursor-pointer;
+  animation: blink 3s infinite;
+}
+
+.social-icon-instagram:hover,
+.social-icon-github:hover,
+.social-icon-linkedin:hover,
+.social-icon-facebook:hover,
+.social-icon-twitter:hover {
+  animation: none;
+}
+
+/* Brand Colors */
+.social-icon-instagram { color: #E1306C; }
+.social-icon-github { color: #333; }
+.social-icon-linkedin { color: #0077B5; }
+.social-icon-facebook { color: #1877F2; }
+.social-icon-twitter { color: #1DA1F2; }
+
+/* Blink Animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Staggered Animation Delays */
+.social-icon-instagram { animation-delay: 0s; }
+.social-icon-github { animation-delay: 0.5s; }
+.social-icon-linkedin { animation-delay: 1s; }
+.social-icon-facebook { animation-delay: 1.5s; }
+.social-icon-twitter { animation-delay: 2s; }
