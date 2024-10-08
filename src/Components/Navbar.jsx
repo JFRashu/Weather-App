@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-white/30 backdrop-blur-[5%] fixed top-0 w-full z-50 shadow-sm ">
-      <div className="navbar-start mr-50">
+    <div className="navbar bg-white/30 backdrop-blur-[5%] fixed top-0 w-full z-50 shadow-sm">
+      {/* Left side with dropdown */}
+      <div className="flex-1">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
             <svg
@@ -35,12 +36,18 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
-      <div className="navbar-center">
-        {/* <img src="/public/weather_icon_2.png" alt="Weather Icon" className="h-12 w-12 " /> */}
-        <a className="btn btn-ghost text-xl font-semibold">Weather App</a>
+
+      {/* Center section with absolute positioning for perfect centering */}
+      <div className="absolute left-1/2 transform -translate-x-1/2">
+        <img 
+          src="/public/Images/breez_logo.png" 
+          alt="Weather Icon" 
+          className="h-8 w-auto sm:h-10 md:h-12 object-contain" 
+        />
       </div>
 
-     
+      {/* Right side spacer to maintain balance */}
+      <div className="flex-1"></div>
     </div>
   );
 };
