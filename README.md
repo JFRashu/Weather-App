@@ -4,7 +4,7 @@ A modern, responsive weather application built with React, Vite, and Tailwind CS
 
 ## 🎥 Demo
 
-<div align="center">
+<div >
   <video width="100%" controls>
     <source src="./assets/demo/weather-app-demo.mp4" type="video/mp4">
   </video>
