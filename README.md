@@ -5,7 +5,7 @@ A modern, responsive weather application built with React, Vite, and Tailwind CS
 ## 🎥 Demo
 
 
-[Watch the demo video](https://media-hosting.imagekit.io//e4f96210b22349a5/Breezvisions.mp4?Expires=1830949509&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=A30Y2P4aKVN9RbOoW0lZVv3uuEjx36wuzDkLQNnKHSXrlES9CsFNIJd0WEYron9LbQOAy-En4WH0yITdvPxEigGJw3nTEW-6LX5uAQJJm18hByVuWl8G0OVUscVXqNmor1xt26hiE412vkJVaK~pOBDT10r3Rek7vM8DwyPAMelIBjO64SUo3wZToaxReFiTfx3KqaOUIIfKzQnYqQZpWoTpidBYdK~sXmqiCRVfSzSeXi-UcwJCNjGhcg2E-jpVFblA7xOYDWLqlL~stSfTl~2KWK1rLD654cNDdN50A6lMZUETNrBK~e-E5dYt4nq7tQmviQ23lVqOhIl1V1GLVw__)
+[Watch the demo video](https://drive.google.com/file/d/1k4TWoVexGu-xq6RGRuBd0bG2lTyYJuER/view?usp=drive_link)
 
 *The demo above showcases the app's responsive design across desktop and mobile views*
 
