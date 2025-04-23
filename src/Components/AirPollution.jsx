@@ -9,7 +9,7 @@ const AirPollution = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [locationName, setLocationName] = useState("");
-
+    // const apiKey = import.meta.env.env.WEATHER_API_KEY;
     const API_KEY = '451fe90208126ce549ad47c3769a62ad';
     const BASE_URL = 'https://api.openweathermap.org/data/2.5';
     const GEO_URL = 'https://api.openweathermap.org/geo/1.0';
