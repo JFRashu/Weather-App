@@ -1,0 +1,505 @@
+{
+    "cities": [
+      {
+        "id": 1,
+        "name": "London",
+        "country": "UK",
+        "coordinates": {
+          "lat": 51.5074,
+          "lon": -0.1278
+        },
+        "timezone": "Europe/London"
+      },
+      {
+        "id": 2,
+        "name": "New York",
+        "country": "USA",
+        "coordinates": {
+          "lat": 40.7128,
+          "lon": -74.0060
+        },
+        "timezone": "America/New_York"
+      },
+      {
+        "id": 3,
+        "name": "Tokyo",
+        "country": "Japan",
+        "coordinates": {
+          "lat": 35.6762,
+          "lon": 139.6503
+        },
+        "timezone": "Asia/Tokyo"
+      },
+      {
+        "id": 4,
+        "name": "Dubai",
+        "country": "UAE",
+        "coordinates": {
+          "lat": 25.2048,
+          "lon": 55.2708
+        },
+        "timezone": "Asia/Dubai"
+      },
+      {
+        "id": 5,
+        "name": "Mecca",
+        "country": "Saudi Arabia",
+        "coordinates": {
+          "lat": 21.4225,
+          "lon": 39.8262
+        },
+        "timezone": "Asia/Riyadh"
+      },
+      {
+        "id": 6,
+        "name": "Sydney",
+        "country": "Australia",
+        "coordinates": {
+          "lat": -33.8688,
+          "lon": 151.2093
+        },
+        "timezone": "Australia/Sydney"
+      },
+      {
+        "id": 7,
+        "name": "Paris",
+        "country": "France",
+        "coordinates": {
+          "lat": 48.8566,
+          "lon": 2.3522
+        },
+        "timezone": "Europe/Paris"
+      },
+      {
+        "id": 8,
+        "name": "Berlin",
+        "country": "Germany",
+        "coordinates": {
+          "lat": 52.5200,
+          "lon": 13.4050
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "id": 9,
+        "name": "Beijing",
+        "country": "China",
+        "coordinates": {
+          "lat": 39.9042,
+          "lon": 116.4074
+        },
+        "timezone": "Asia/Shanghai"
+      },
+      {
+        "id": 10,
+        "name": "Moscow",
+        "country": "Russia",
+        "coordinates": {
+          "lat": 55.7558,
+          "lon": 37.6173
+        },
+        "timezone": "Europe/Moscow"
+      },
+      {
+        "id": 11,
+        "name": "Rio de Janeiro",
+        "country": "Brazil",
+        "coordinates": {
+          "lat": -22.9068,
+          "lon": -43.1729
+        },
+        "timezone": "America/Sao_Paulo"
+      },
+      {
+        "id": 12,
+        "name": "Buenos Aires",
+        "country": "Argentina",
+        "coordinates": {
+          "lat": -34.6037,
+          "lon": -58.3816
+        },
+        "timezone": "America/Argentina/Buenos_Aires"
+      },
+      {
+        "id": 13,
+        "name": "Toronto",
+        "country": "Canada",
+        "coordinates": {
+          "lat": 43.6510,
+          "lon": -79.3470
+        },
+        "timezone": "America/Toronto"
+      },
+      {
+        "id": 14,
+        "name": "Mexico City",
+        "country": "Mexico",
+        "coordinates": {
+          "lat": 19.4326,
+          "lon": -99.1332
+        },
+        "timezone": "America/Mexico_City"
+      },
+      {
+        "id": 15,
+        "name": "Cape Town",
+        "country": "South Africa",
+        "coordinates": {
+          "lat": -33.9249,
+          "lon": 18.4241
+        },
+        "timezone": "Africa/Johannesburg"
+      },
+      {
+        "id": 16,
+        "name": "Nairobi",
+        "country": "Kenya",
+        "coordinates": {
+          "lat": -1.2864,
+          "lon": 36.8172
+        },
+        "timezone": "Africa/Nairobi"
+      },
+      {
+        "id": 17,
+        "name": "Lagos",
+        "country": "Nigeria",
+        "coordinates": {
+          "lat": 6.5244,
+          "lon": 3.3792
+        },
+        "timezone": "Africa/Lagos"
+      },
+      {
+        "id": 18,
+        "name": "Cairo",
+        "country": "Egypt",
+        "coordinates": {
+          "lat": 30.0444,
+          "lon": 31.2357
+        },
+        "timezone": "Africa/Cairo"
+      },
+      {
+        "id": 19,
+        "name": "Istanbul",
+        "country": "Turkey",
+        "coordinates": {
+          "lat": 41.0082,
+          "lon": 28.9784
+        },
+        "timezone": "Europe/Istanbul"
+      },
+      {
+        "id": 20,
+        "name": "Seoul",
+        "country": "South Korea",
+        "coordinates": {
+          "lat": 37.5665,
+          "lon": 126.9780
+        },
+        "timezone": "Asia/Seoul"
+      },
+      {
+        "id": 21,
+        "name": "Bangkok",
+        "country": "Thailand",
+        "coordinates": {
+          "lat": 13.7563,
+          "lon": 100.5018
+        },
+        "timezone": "Asia/Bangkok"
+      },
+      {
+        "id": 22,
+        "name": "Jakarta",
+        "country": "Indonesia",
+        "coordinates": {
+          "lat": -6.2088,
+          "lon": 106.8456
+        },
+        "timezone": "Asia/Jakarta"
+      },
+      {
+        "id": 23,
+        "name": "Singapore",
+        "country": "Singapore",
+        "coordinates": {
+          "lat": 1.3521,
+          "lon": 103.8198
+        },
+        "timezone": "Asia/Singapore"
+      },
+      {
+        "id": 24,
+        "name": "Mumbai",
+        "country": "India",
+        "coordinates": {
+          "lat": 19.0760,
+          "lon": 72.8777
+        },
+        "timezone": "Asia/Kolkata"
+      },
+      {
+        "id": 25,
+        "name": "Kathmandu",
+        "country": "Nepal",
+        "coordinates": {
+          "lat": 27.7172,
+          "lon": 85.3240
+        },
+        "timezone": "Asia/Kathmandu"
+      },
+      {
+        "id": 26,
+        "name": "Helsinki",
+        "country": "Finland",
+        "coordinates": {
+          "lat": 60.1699,
+          "lon": 24.9384
+        },
+        "timezone": "Europe/Helsinki"
+      },
+      {
+        "id": 27,
+        "name": "Stockholm",
+        "country": "Sweden",
+        "coordinates": {
+          "lat": 59.3293,
+          "lon": 18.0686
+        },
+        "timezone": "Europe/Stockholm"
+      },
+      {
+        "id": 28,
+        "name": "Oslo",
+        "country": "Norway",
+        "coordinates": {
+          "lat": 59.9139,
+          "lon": 10.7522
+        },
+        "timezone": "Europe/Oslo"
+      },
+      {
+        "id": 29,
+        "name": "Copenhagen",
+        "country": "Denmark",
+        "coordinates": {
+          "lat": 55.6761,
+          "lon": 12.5683
+        },
+        "timezone": "Europe/Copenhagen"
+      },
+      {
+        "id": 30,
+        "name": "Athens",
+        "country": "Greece",
+        "coordinates": {
+          "lat": 37.9838,
+          "lon": 23.7275
+        },
+        "timezone": "Europe/Athens"
+      },
+      {
+        "id": 31,
+        "name": "Warsaw",
+        "country": "Poland",
+        "coordinates": {
+          "lat": 52.2297,
+          "lon": 21.0122
+        },
+        "timezone": "Europe/Warsaw"
+      },
+      {
+        "id": 32,
+        "name": "Prague",
+        "country": "Czech Republic",
+        "coordinates": {
+          "lat": 50.0755,
+          "lon": 14.4378
+        },
+        "timezone": "Europe/Prague"
+      },
+      {
+        "id": 33,
+        "name": "Lisbon",
+        "country": "Portugal",
+        "coordinates": {
+          "lat": 38.7223,
+          "lon": -9.1393
+        },
+        "timezone": "Europe/Lisbon"
+      },
+      {
+        "id": 34,
+        "name": "Madrid",
+        "country": "Spain",
+        "coordinates": {
+          "lat": 40.4168,
+          "lon": -3.7038
+        },
+        "timezone": "Europe/Madrid"
+      },
+      {
+        "id": 35,
+        "name": "Rome",
+        "country": "Italy",
+        "coordinates": {
+          "lat": 41.9028,
+          "lon": 12.4964
+        },
+        "timezone": "Europe/Rome"
+      },
+      {
+        "id": 36,
+        "name": "Vienna",
+        "country": "Austria",
+        "coordinates": {
+          "lat": 48.2082,
+          "lon": 16.3738
+        },
+        "timezone": "Europe/Vienna"
+      },
+      {
+        "id": 37,
+        "name": "Budapest",
+        "country": "Hungary",
+        "coordinates": {
+          "lat": 47.4979,
+          "lon": 19.0402
+        },
+        "timezone": "Europe/Budapest"
+      },
+      {
+        "id": 38,
+        "name": "Kuala Lumpur",
+        "country": "Malaysia",
+        "coordinates": {
+          "lat": 3.1390,
+          "lon": 101.6869
+        },
+        "timezone": "Asia/Kuala_Lumpur"
+      },
+      {
+        "id": 39,
+        "name": "Hanoi",
+        "country": "Vietnam",
+        "coordinates": {
+          "lat": 21.0285,
+          "lon": 105.8542
+        },
+        "timezone": "Asia/Ho_Chi_Minh"
+      },
+      {
+        "id": 40,
+        "name": "Santiago",
+        "country": "Chile",
+        "coordinates": {
+          "lat": -33.4489,
+          "lon": -70.6693
+        },
+        "timezone": "America/Santiago"
+      },
+      {
+        "id": 41,
+        "name": "Lima",
+        "country": "Peru",
+        "coordinates": {
+          "lat": -12.0464,
+          "lon": -77.0428
+        },
+        "timezone": "America/Lima"
+      },
+      {
+        "id": 42,
+        "name": "Bogota",
+        "country": "Colombia",
+        "coordinates": {
+          "lat": 4.7110,
+          "lon": -74.0721
+        },
+        "timezone": "America/Bogota"
+      },
+      {
+        "id": 43,
+        "name": "Caracas",
+        "country": "Venezuela",
+        "coordinates": {
+          "lat": 10.4806,
+          "lon": -66.9036
+        },
+        "timezone": "America/Caracas"
+      },
+      {
+        "id": 44,
+        "name": "Lusaka",
+        "country": "Zambia",
+        "coordinates": {
+          "lat": -15.3875,
+          "lon": 28.3228
+        },
+        "timezone": "Africa/Lusaka"
+      },
+      {
+        "id": 45,
+        "name": "Addis Ababa",
+        "country": "Ethiopia",
+        "coordinates": {
+          "lat": 9.03,
+          "lon": 38.74
+        },
+        "timezone": "Africa/Addis_Ababa"
+      },
+      {
+        "id": 46,
+        "name": "Tehran",
+        "country": "Iran",
+        "coordinates": {
+          "lat": 35.6892,
+          "lon": 51.3890
+        },
+        "timezone": "Asia/Tehran"
+      },
+      {
+        "id": 47,
+        "name": "Baghdad",
+        "country": "Iraq",
+        "coordinates": {
+          "lat": 33.3152,
+          "lon": 44.3661
+        },
+        "timezone": "Asia/Baghdad"
+      },
+      {
+        "id": 48,
+        "name": "Karachi",
+        "country": "Pakistan",
+        "coordinates": {
+          "lat": 24.8607,
+          "lon": 67.0011
+        },
+        "timezone": "Asia/Karachi"
+      },
+      {
+        "id": 49,
+        "name": "Dhaka",
+        "country": "Bangladesh",
+        "coordinates": {
+          "lat": 23.8103,
+          "lon": 90.4125
+        },
+        "timezone": "Asia/Dhaka"
+      },
+      {
+        "id": 50,
+        "name": "Kolkata",
+        "country": "India",
+        "coordinates": {
+          "lat": 22.5726,
+          "lon": 88.3639
+        },
+        "timezone": "Asia/Kolkata"
+      }
+    ]
+  }
+  

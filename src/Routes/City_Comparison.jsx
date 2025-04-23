@@ -20,7 +20,7 @@ const CityComparison = () => {
   const [cityNotFound, setCityNotFound] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  const apiKey = '451fe90208126ce549ad47c3769a62ad';
+  const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
   const quickCompareCities = {
     dhaka: { name: "Dhaka", coordinates: { lat: 23.777176, lon: 90.399452} },
