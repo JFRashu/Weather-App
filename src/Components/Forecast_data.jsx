@@ -6,7 +6,7 @@ const Forecast_data = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const apiKey = '451fe90208126ce549ad47c3769a62ad';
+  const apiKey =import.meta.env.VITE_WEATHER_API_KEY;;
 
   const fetchForecastData = async (lat, lon) => {
       try {

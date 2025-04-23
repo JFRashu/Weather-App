@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css';
 
 const WeatherMaps = () => {
     const [activeMap, setActiveMap] = useState('temperature');
-    const API_KEY = '451fe90208126ce549ad47c3769a62ad'; // Replace with your API key
+    const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
     const mapTypes = [
         { 

@@ -49,7 +49,7 @@ export const CurrentInfo = () => {
     const [banglaDate, setBanglaDate] = useState('');
     const [hijriDate, setHijriDate] = useState('');
 
-    const apiKey = '451fe90208126ce549ad47c3769a62ad';
+    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;;
 
     const fetchWeatherData = async (lat, lon) => {
         
