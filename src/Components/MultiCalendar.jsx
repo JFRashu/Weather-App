@@ -81,7 +81,7 @@ export const CalendarBoxes = () => {
     }, []);
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 flex justify-center ">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <CalendarBox 
                     title="Gregorian Calendar"
